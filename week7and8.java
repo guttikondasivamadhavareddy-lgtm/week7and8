@@ -1,22 +1,48 @@
-import java.util.Scanner;
+import java.util.Random;
 
 public class week7and8 {
 
-    static boolean isLeapYear(int year) {
-        return (year >= 1582) &&
-               ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0));
+    static int sum(int[] arr) {
+        int s = 0;
+        for (int x : arr) s += x;
+        return s;
+    }
+
+    static double mean(int[] arr) {
+        return (double) sum(arr) / arr.length;
+    }
+
+    static int shortest(int[] arr) {
+        int min = arr[0];
+        for (int x : arr) {
+            if (x < min) min = x;
+        }
+        return min;
+    }
+
+    static int tallest(int[] arr) {
+        int max = arr[0];
+        for (int x : arr) {
+            if (x > max) max = x;
+        }
+        return max;
     }
 
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
 
-        System.out.print("Enter year: ");
-        int year = sc.nextInt();
+        int[] heights = new int[11];
+        Random rand = new Random();
 
-        if (isLeapYear(year)) {
-            System.out.println("Year is a Leap Year");
-        } else {
-            System.out.println("Year is not a Leap Year");
+        // Generate random heights (150–250 cm)
+        for (int i = 0; i < heights.length; i++) {
+            heights[i] = rand.nextInt(101) + 150;
         }
+
+        System.out.print("Heights: ");
+        for (int h : heights) System.out.print(h + " ");
+
+        System.out.println("\nMean height: " + mean(heights));
+        System.out.println("Shortest height: " + shortest(heights));
+        System.out.println("Tallest height: " + tallest(heights));
     }
 }
