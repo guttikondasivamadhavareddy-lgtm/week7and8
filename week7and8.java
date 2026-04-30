@@ -2,28 +2,19 @@ import java.util.Scanner;
 
 public class week7and8 {
 
-    static double calculateSI(double principal, double rate, double time) {
-        return (principal * rate * time) / 100;
+    static int calculateHandshakes(int n) {
+        return (n * (n - 1)) / 2;
     }
 
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
 
-        System.out.print("Enter Principal: ");
-        double p = sc.nextDouble();
+        System.out.print("Enter number of students: ");
+        int n = sc.nextInt();
 
-        System.out.print("Enter Rate: ");
-        double r = sc.nextDouble();
+        int result = calculateHandshakes(n);
 
-        System.out.print("Enter Time: ");
-        double t = sc.nextDouble();
-
-        double si = calculateSI(p, r, t);
-
-        System.out.println("The Simple Interest is " + si +
-                " for Principal " + p +
-                ", Rate of Interest " + r +
-                " and Time " + t);
+        System.out.println("Maximum number of handshakes: " + result);
     }
 }
