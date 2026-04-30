@@ -1,48 +1,98 @@
-import java.util.Random;
+import java.util.Scanner;
 
 public class week7and8 {
 
-    static int sum(int[] arr) {
-        int s = 0;
-        for (int x : arr) s += x;
-        return s;
-    }
-
-    static double mean(int[] arr) {
-        return (double) sum(arr) / arr.length;
-    }
-
-    static int shortest(int[] arr) {
-        int min = arr[0];
-        for (int x : arr) {
-            if (x < min) min = x;
+    static int countDigits(int num) {
+        int count = 0;
+        while (num != 0) {
+            count++;
+            num /= 10;
         }
-        return min;
+        return count;
     }
 
-    static int tallest(int[] arr) {
-        int max = arr[0];
-        for (int x : arr) {
-            if (x > max) max = x;
+    static int[] getDigits(int num) {
+        int count = countDigits(num);
+        int[] digits = new int[count];
+
+        for (int i = count - 1; i >= 0; i--) {
+            digits[i] = num % 10;
+            num /= 10;
         }
-        return max;
+        return digits;
+    }
+
+    static boolean isDuckNumber(int[] digits) {
+        for (int d : digits) {
+            if (d == 0) return true;
+        }
+        return false;
+    }
+
+    static boolean isArmstrong(int[] digits) {
+        int power = digits.length;
+        int sum = 0;
+
+        for (int d : digits) {
+            sum += Math.pow(d, power);
+        }
+
+        int original = 0;
+        for (int d : digits) {
+            original = original * 10 + d;
+        }
+
+        return sum == original;
+    }
+
+    static void largestSecondLargest(int[] digits) {
+        int largest = Integer.MIN_VALUE;
+        int second = Integer.MIN_VALUE;
+
+        for (int d : digits) {
+            if (d > largest) {
+                second = largest;
+                largest = d;
+            } else if (d > second && d != largest) {
+                second = d;
+            }
+        }
+
+        System.out.println("Largest: " + largest);
+        System.out.println("Second Largest: " + second);
+    }
+
+    static void smallestSecondSmallest(int[] digits) {
+        int smallest = Integer.MAX_VALUE;
+        int second = Integer.MAX_VALUE;
+
+        for (int d : digits) {
+            if (d < smallest) {
+                second = smallest;
+                smallest = d;
+            } else if (d < second && d != smallest) {
+                second = d;
+            }
+        }
+
+        System.out.println("Smallest: " + smallest);
+        System.out.println("Second Smallest: " + second);
     }
 
     public static void main(String[] args) {
 
-        int[] heights = new int[11];
-        Random rand = new Random();
+        Scanner sc = new Scanner(System.in);
 
-        // Generate random heights (150–250 cm)
-        for (int i = 0; i < heights.length; i++) {
-            heights[i] = rand.nextInt(101) + 150;
-        }
+        System.out.print("Enter number: ");
+        int num = sc.nextInt();
 
-        System.out.print("Heights: ");
-        for (int h : heights) System.out.print(h + " ");
+        int[] digits = getDigits(num);
 
-        System.out.println("\nMean height: " + mean(heights));
-        System.out.println("Shortest height: " + shortest(heights));
-        System.out.println("Tallest height: " + tallest(heights));
+        System.out.println("Digit count: " + digits.length);
+        System.out.println("Duck number: " + isDuckNumber(digits));
+        System.out.println("Armstrong number: " + isArmstrong(digits));
+
+        largestSecondLargest(digits);
+        smallestSecondSmallest(digits);
     }
 }
